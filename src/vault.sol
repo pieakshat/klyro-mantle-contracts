@@ -172,6 +172,7 @@ contract USDTVault is ReentrancyGuard {
         if (amount == 0) revert ZeroAmount();
 
         uint256 beforeBal = IERC20(USDT).balanceOf(address(this));
+        // we can directly withdraw to user's wallet directly, not doing that currently
         IAdapter(adapter).withdraw(USDT, amount, address(this));
         uint256 received = IERC20(USDT).balanceOf(address(this)) - beforeBal;
         require(received > 0, "no funds received"); // optional assertion
